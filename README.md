@@ -1,2 +1,3 @@
 # Aventura-Gatuna
 Juego para ingenieria de videojuegos
+https://miro.com/welcomeonboard/OGVVN05kVnA3WTZaMnBJZWpKRWh6YzY2ZU16OFdReEZVcTNidTJONjJ1VmxDTXc5STZpM25ObVl5SXk0MWZ6UnwzNDU4NzY0NTczMDA1Mjk1Njk2fDI=?share_link_id=479285226599
