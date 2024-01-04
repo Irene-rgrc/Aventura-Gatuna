@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Interfaces;
+using EnemyState.Interfaces;
 
 public class Chasing : IMovementState
 {
-    private Transform targetTransform;
+    private Transform playerTransform;
     private Transform currentTransform;
 
     //private float rotationSpeed;
@@ -18,8 +18,7 @@ public class Chasing : IMovementState
     public override void Enter()
     {
         currentTransform = enemy.GetGameObject().transform;
-        //playerTransform = enemy.PlayerAtSight().transform;
-        //rotationSpeed = enemy.GetRotateSpeed();
+        playerTransform = enemy.GetPlayerAtSight().transform;
         chaseSpeed = enemy.GetChaseSpeed();
     }
 
@@ -33,12 +32,14 @@ public class Chasing : IMovementState
 
     public override void FixedUpdate()
     {
-        /*if (enemy.PlayerAtSight())
+        if (enemy.GetPlayerAtSight())
         {
-            enemy.MoveTo(targetTransform, chaseSpeed);
+            Debug.Log($"yayayyayayya");
+            enemy.MoveTo(playerTransform, chaseSpeed);
         }
-        else*/
+        else
         {
+            Debug.Log($"aaaaaaaa");
             enemy.SetState(new Walking(enemy));
         }
     }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Interfaces;
+using EnemyState.Interfaces;
 
 public class SearchingForPlayer : IMovementState
 {
@@ -19,12 +19,14 @@ public class SearchingForPlayer : IMovementState
 
     public override void Update()
     {
-        /*if (enemy.PlayerAtSight() != null)
+        if (enemy.GetPlayerAtSight() != null)
         {
+            Debug.Log($"sdfgsdg");
             enemy.SetState(new Chasing(enemy));
         }
-        else*/
+        else
         {
+            Debug.Log($"nanana");
             enemy.SetState(new Walking(enemy));
         }
     }

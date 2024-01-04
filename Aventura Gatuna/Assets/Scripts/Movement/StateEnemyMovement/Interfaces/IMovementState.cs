@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Interfaces
+namespace EnemyState.Interfaces
 {
     public abstract class IMovementState : IState
     {

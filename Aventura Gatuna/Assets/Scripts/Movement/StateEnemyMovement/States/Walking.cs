@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.UI;
 using UnityEngine.Apple;
-using Interfaces;
+using EnemyState.Interfaces;
 
 public class Walking : IMovementState
 {
@@ -35,20 +35,19 @@ public class Walking : IMovementState
 
     public override void Update()
     {
-        /*lastSeek += Time.deltaTime;
+        lastSeek += Time.deltaTime;
 
         if (lastSeek >= secondsToSeek)
         {
             enemy.SetState(new SearchingForPlayer(enemy));
             lastSeek = 0f;
-        }*/
+        }
 
     }
 
     public override void FixedUpdate()
     {
         enemy.MoveTo(currentWaypoint, speed);
-        Debug.Log($"fddgffdgs");
         range = Vector2.Distance(currentTransform.position, currentWaypoint.position);
         if (range < minDistance)
         {

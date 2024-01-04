@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Interfaces
+namespace EnemyState.Interfaces
 {
     public interface IEnemyMovement
     {
@@ -21,5 +21,8 @@ namespace Interfaces
         public Transform[] GetWayPoints();
         public Transform GetCurrentWaypoint();
         public void SetCurrentWayPoint(Transform target);
+
+        public GameObject GetPlayerAtSight();
+        public void SetPlayerAtSight(GameObject playerAtSight);
     }
 }

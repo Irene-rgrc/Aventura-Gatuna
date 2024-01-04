@@ -58,16 +58,21 @@
     <Analyzer Include="D:\Unity\2022.3.2f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\FlipScript.cs" />
-    <Compile Include="Assets\Scripts\States\Walking.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IState.cs" />
-    <Compile Include="Assets\Scripts\States\Chasing.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IEnemyMovement.cs" />
-    <Compile Include="Assets\Scripts\EnemyMovementController.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IMovementState.cs" />
-    <Compile Include="Assets\Scripts\States\SearchingForWaypoint.cs" />
-    <Compile Include="Assets\Scripts\States\SearchingForPlayer.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\Components\EnemyMovementController.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\Interfaces\IMovementState.cs" />
+    <Compile Include="Assets\Scripts\ObserverGameStart\Interfaces\ISubject.cs" />
+    <Compile Include="Assets\Scripts\ObserverGameStart\ObserverGame.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\States\Chasing.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\Interfaces\IState.cs" />
+    <Compile Include="Assets\Scripts\Movement\MainCharacter\MainCharacterMovement.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\States\SearchingForPlayer.cs" />
+    <Compile Include="Assets\Scripts\FlipScript.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\States\Walking.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\Components\EnemyZone.cs" />
+    <Compile Include="Assets\Scripts\ObserverGameStart\Interfaces\IObserver.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\Interfaces\IEnemyMovement.cs" />
+    <Compile Include="Assets\Scripts\Movement\StateEnemyMovement\States\SearchingForWaypoint.cs" />
+    <Compile Include="Assets\Scripts\ObserverGameStart\SubjectPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

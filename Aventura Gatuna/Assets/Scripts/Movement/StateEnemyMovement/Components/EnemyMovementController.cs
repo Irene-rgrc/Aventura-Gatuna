@@ -1,20 +1,18 @@
-using Interfaces;
+using EnemyState.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using System.Transactions;
-using Interfaces;
 //using States;
 using Unity.VisualScripting;
-using IState = Interfaces.IState;
+using IState = EnemyState.Interfaces.IState;
 using static UnityEngine.GraphicsBuffer;
 using System;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 {
-    private float range;
-    private float minDistance = 5.0f;
     private bool targetCollision = false;
     public float WanderSpeed;
     public float ChaseSpeed;
@@ -23,6 +21,8 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 
     public Transform currentWaypoint;
     public Transform[] waypoints;
+
+    private GameObject playerAtSight;
 
     private void Awake()
     {
@@ -35,7 +35,6 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
         //animator = gameObject.GetComponent<Animator>();
 
         SetState(new Walking(this));
-        Debug.Log($"asdsdasdffd");
     }
 
     public GameObject GetGameObject()
@@ -61,7 +60,7 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
     }
     #endregion
 
-    #region Get & set Waypoints
+    #region Get & set Waypoints & playerAtSight
     public Transform[] GetWayPoints()
     {
         return waypoints;
@@ -75,6 +74,15 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
     public void SetCurrentWayPoint(Transform currentWaypoint)
     {
         this.currentWaypoint = currentWaypoint;
+    }
+    public GameObject GetPlayerAtSight()
+    {
+        return playerAtSight;
+    }
+
+    public void SetPlayerAtSight(GameObject playerAtSight)
+    {
+        this.playerAtSight = playerAtSight;
     }
     #endregion
 
@@ -110,18 +118,13 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 
     public void MoveTo(Transform target, float speed)
     {
-        range = Vector2.Distance(transform.position, target.position);
-        //if (range < minDistance)
+        if (!targetCollision)
         {
-            if (!targetCollision)
-            {
-                // Get the position of the player
-                transform.LookAt(target.position);
-                Debug.Log($"sdfgsdg");
-                // Correct the rotation
-                transform.Rotate(new Vector3(0, -90, 0), Space.Self);
-                transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-            }
+            // Get the position of the player
+            transform.LookAt(target.position);
+            // Correct the rotation
+            transform.Rotate(new Vector3(0, -90, 0), Space.Self);
+            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
         transform.rotation = Quaternion.identity;
     }

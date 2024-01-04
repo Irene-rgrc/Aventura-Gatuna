@@ -1,4 +1,4 @@
-namespace Interfaces
+namespace EnemyState.Interfaces
 {
     public interface IState
     {
