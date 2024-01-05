@@ -12,8 +12,6 @@ public class SearchingForWaypoint : IMovementState
     private Transform currentTransform;
     private Transform nextWaypoint;
     private Transform currentWaypoint;
-    private float range;
-    private float minDistance = 1.0f;
 
     public SearchingForWaypoint(IEnemyMovement enemy) : base(enemy)
     {

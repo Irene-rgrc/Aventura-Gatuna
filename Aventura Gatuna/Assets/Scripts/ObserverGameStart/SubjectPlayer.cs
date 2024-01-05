@@ -21,7 +21,6 @@ public class SubjectPlayer : MonoBehaviour, ISubject<GameObject>
 
     public void AddObserver(IObserver<GameObject> observer)
     {
-        Debug.Log("aaa");
         _observers.Add(observer);
     }
 

@@ -34,12 +34,10 @@ public class Chasing : IMovementState
     {
         if (enemy.GetPlayerAtSight())
         {
-            Debug.Log($"yayayyayayya");
             enemy.MoveTo(playerTransform, chaseSpeed);
         }
         else
         {
-            Debug.Log($"aaaaaaaa");
             enemy.SetState(new Walking(enemy));
         }
     }
