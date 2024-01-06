@@ -10,10 +10,8 @@ public class EnemyZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"playerplayer");
             enemy.GetComponent<EnemyMovementController>().SetPlayerAtSight(other.gameObject);
         }
-        Debug.Log($"nonono");
     }
 
     private void OnTriggerStay2D(Collider2D other)

@@ -21,12 +21,10 @@ public class SearchingForPlayer : IMovementState
     {
         if (enemy.GetPlayerAtSight() != null)
         {
-            Debug.Log($"sdfgsdg");
             enemy.SetState(new Chasing(enemy));
         }
         else
         {
-            Debug.Log($"nanana");
             enemy.SetState(new Walking(enemy));
         }
     }

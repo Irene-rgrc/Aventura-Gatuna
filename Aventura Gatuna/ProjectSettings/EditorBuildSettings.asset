@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CoinFlip.unity
     guid: e671d805dcefd514aa985b10ae80d4c6
+  - enabled: 1
+    path: Assets/Scenes/PiedraPapelTijera.unity
+    guid: 956707c48d975dd498923bd15891a458
   m_configObjects: {}
