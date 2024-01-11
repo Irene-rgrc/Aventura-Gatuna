@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PiedraPapelTijera.unity
     guid: 956707c48d975dd498923bd15891a458
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 1416b4f63a7f2ef48a47fccee8a35448
   m_configObjects: {}

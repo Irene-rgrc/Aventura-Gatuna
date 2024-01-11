@@ -10,6 +10,7 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
     private int enemyProbabillity = 90;
     public static ObserverGame instance;
     private static IGameController gameplayController;
+    private GameObject enemy;
 
     private void Awake()
     {
@@ -31,6 +32,8 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
     {
         if (data.CompareTag("Enemy"))
         {
+            enemy = data.GetComponent<GameObject>();
+            enemyProbabillity = data.GetComponent<Enemy>().GetProbability();
             //rand elige juego y se carga la escena
             SceneManager.LoadScene("PiedraPapelTijera");
             //se usa data para cambiar la probabilidad a la que sea
@@ -50,6 +53,8 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
             if (controller.GetComponent<GameplayController>() != null) { gameplayController = controller.GetComponent<GameplayController>(); }
             //if (controller.GetComponent<FlipScript>() != null){ gameplayController = controller.GetComponent<FlipScript>();}
             gameplayController.SetEnemyProb(enemyProbabillity);
+        
+            
         }
     }
 

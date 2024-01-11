@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7d21dfcb44d794ab60636d138a4811, type: 3}
   m_Name: EnemyAttributes
   m_EditorClassIdentifier: 
-  enemyType: 
-  maxLife: 0
-  maxProbability: 0
+  enemyType: Enemigo1
+  maxLife: 100
+  maxProbability: 68
