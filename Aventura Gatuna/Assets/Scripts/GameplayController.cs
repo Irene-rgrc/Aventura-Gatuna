@@ -210,7 +210,7 @@ public class GameplayController : MonoBehaviour, IGameController
             yield return new WaitForSeconds(2f);
             infoText.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
-            SceneManager.LoadScene("Dungeon");
+            SceneManager.LoadScene("Dungeon2");
         }
     }
 

@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI mainText;
 
     // Carta oculta del oponente
-    public GameObject hideCard;
+    public GameObject OcultarCarta;
 
     // public Button apostarBtn; // NO LO HACEMOS
     void Start()
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         pararseBtn.onClick.AddListener(() => PararsePulsado());
     }
 
-    private void TratoPulsado()
+    private void TratoPulsado() 
     {
         // RESETEA LA RONDA
         playerScript.ResetHand();
@@ -65,13 +65,13 @@ public class GameManager : MonoBehaviour
         //scoreText.text = "Mano: " + playerScript.handValue.ToString(); // playerScript.handValue.ToString();
 
         // SE ESCONDE, hide card
-        hideCard.GetComponent<Renderer>().enabled = true;
+        OcultarCarta.GetComponent<Renderer>().enabled = true;
 
         // Ajustar los botones de visibilidad
         pararseBtn.gameObject.SetActive(true);
         hitBtn.gameObject.SetActive(true);
         tratoBtn.gameObject.SetActive(false);
-        standBtnText.text = "Pararse"; 
+        //standBtnText.text = "Pararse"; 
     }
 
     private void HitPulsado()
@@ -93,16 +93,16 @@ public class GameManager : MonoBehaviour
         standClicks++;
         if (standClicks > 1) RoundOver();
         HitDealer();
-        standBtnText.text = "Call";
+        //standBtnText.text = "Call";
     }
 
     private void HitDealer() // ESTO ES LA FUNCION DE ROBAR PARA EL ENEMIGO AQUI SE DEBERIA DE IMPLEMENTAR
     // TAMBIEN LAS PROBABILIDADES O SI NO EN EL GETHAND, UNO ESPECIFICO PARA EL OPONENTE DE QUE TIENE MAS PROB DE UN BLACKJACK.
     {
-        while (dealerScript.handValue < 16 && dealerScript.cardIndex < 10)
+        while (dealerScript.handValue < 3 && dealerScript.cardIndex < 3)
         {
             dealerScript.GetCard();
-            if (dealerScript.handValue > 20) RoundOver();
+            if (dealerScript.handValue > 4) RoundOver();
         }
     }
 
@@ -150,11 +150,14 @@ public class GameManager : MonoBehaviour
         // Set ui up for next move / hand / turn
         if (roundOver)
         {
+            OcultarCarta.GetComponent<Renderer>().enabled = false;
+            // PRUEBA
+        
+            //
             hitBtn.gameObject.SetActive(false);
             pararseBtn.gameObject.SetActive(false);
             tratoBtn.gameObject.SetActive(true);
             mainText.gameObject.SetActive(true);
-            hideCard.GetComponent<Renderer>().enabled = false;
             standClicks = 0;
         }
     }

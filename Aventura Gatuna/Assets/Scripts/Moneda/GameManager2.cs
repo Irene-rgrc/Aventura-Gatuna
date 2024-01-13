@@ -77,6 +77,7 @@ public class GameManager2 : MonoBehaviour
             victoria = false;
         }
         infoText.gameObject.SetActive(true);
+        Connection.Instance.SetCoinWin(victoria);
     }
     /*
 public FlipScript coin;

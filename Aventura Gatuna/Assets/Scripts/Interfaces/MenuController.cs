@@ -12,6 +12,7 @@ namespace Patterns.State.Interfaces
         public bool estaJugando = false;
         public bool estaIntro = false;
         public IState currentState;
+
         public GameObject GetGameObject() {
             return this.gameObject;
         }
@@ -31,8 +32,17 @@ namespace Patterns.State.Interfaces
 
         public void Awake() {
             Time.timeScale = 0f;
-            SetState(new MenuPrincipal(this));
+                SetState(new MenuPrincipal(this));
         }
+
+        void Start()
+        {
+            if (Connection.Instance.GetIsPlaying())
+            {
+                VolverJuego();
+            }
+        }
+
         public void Update() {
             this.currentState.Update();
             if (Time.timeScale == 1.0f)

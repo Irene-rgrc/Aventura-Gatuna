@@ -34,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     // Agrega una carta al jugador
     public int GetCard()
     {
+        cardIndex++;
         // coge carta, usar la trato carta para asignarsela al sprite y al valor de la carta en la mesa
         int cardValue = deckScript.TratoCarta(hand[cardIndex].GetComponent<CartaScript>());
         // enseñar la carta en el juego
@@ -45,7 +46,6 @@ public class PlayerScript : MonoBehaviour
         {
             aceList.Add(hand[cardIndex].GetComponent<CartaScript>());
         }
-        cardIndex++;
         return handValue;
     }
 

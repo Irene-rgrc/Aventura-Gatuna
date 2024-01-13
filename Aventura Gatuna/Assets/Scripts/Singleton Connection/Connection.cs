@@ -8,8 +8,10 @@ public class Connection : ASingleton<Connection>
     private int probability;
     private int money;
     private bool win;
+    private bool coinWin;
     private GameObject enemy;
     private Vector3 playerPosition;
+    private bool isPlaying;
     public void SetProbability(int probability)
     {
         this.probability = probability;
@@ -34,6 +36,14 @@ public class Connection : ASingleton<Connection>
     {
         return win;
     }
+    public void SetCoinWin(bool win)
+    {
+        this.coinWin = win;
+    }
+    public bool GetCoinWin()
+    {
+        return coinWin;
+    }
     public void SetPosition(Vector3 position)
     {
         playerPosition = position;
@@ -41,5 +51,21 @@ public class Connection : ASingleton<Connection>
     public Vector3 GetPosition()
     {
         return playerPosition;
+    }
+    public void SetIsPlaying(bool isPlaying)
+    {
+        this.isPlaying = isPlaying;
+    }
+    public bool GetIsPlaying()
+    {
+        return isPlaying;
+    }
+    public void SetEnemy(GameObject enemy)
+    {
+        this.enemy = enemy;
+    }
+    public GameObject GetEnemy()
+    {
+        return enemy;
     }
 }

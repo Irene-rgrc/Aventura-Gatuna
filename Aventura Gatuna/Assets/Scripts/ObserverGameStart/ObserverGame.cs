@@ -21,19 +21,24 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
         enemy = data;
         if (data.CompareTag("Enemy"))
         {
-            //if(enemy.GetComponent<Enemy>().GetType() != "Gambler")
+            //if(enemy.GetComponent<Enemy>().GetEnemyType() == "Gambler")
             if (enemy.GetComponent<Enemy>().Attributes.enemyType == "Gambler")
             {
-                SceneManager.LoadScene("MiniBlackJack");
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
+                Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().getMoney());
+                Connection.Instance.SetIsPlaying(true);
+                SceneManager.LoadScene("MiniBlackJack"); 
             }
+            //if(enemy.GetComponent<Enemy>().GetEnemyType() != "Gambler")
             else if (enemy.GetComponent<Enemy>().Attributes.enemyType != "Gambler")
             {
                 Connection.Instance.SetProbability(enemy.GetComponent<Enemy>().GetProbability());
                 Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().getMoney());
+                Debug.Log(player.GetComponent<GatoPlayer>().getMoney());
+                Debug.Log(enemy.GetComponent<Enemy>().GetProbability());
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
+                Connection.Instance.SetIsPlaying(true);
                 SceneManager.LoadScene("PiedraPapelTijera");
-                //SceneManager.SetActiveScene(SceneManager.GetSceneByName("PiedraPapelTijera"));
             }
         }
     }
