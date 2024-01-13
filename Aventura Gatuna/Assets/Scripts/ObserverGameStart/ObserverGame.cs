@@ -34,8 +34,6 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
             {
                 Connection.Instance.SetProbability(enemy.GetComponent<Enemy>().GetProbability());
                 Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().getMoney());
-                Debug.Log(player.GetComponent<GatoPlayer>().getMoney());
-                Debug.Log(enemy.GetComponent<Enemy>().GetProbability());
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
                 Connection.Instance.SetIsPlaying(true);
                 SceneManager.LoadScene("PiedraPapelTijera");

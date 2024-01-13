@@ -10,7 +10,7 @@ public class Connection : ASingleton<Connection>
     private bool win;
     private bool coinWin;
     private GameObject enemy;
-    private Vector3 playerPosition;
+    public Vector3 playerPosition;
     private bool isPlaying;
     public void SetProbability(int probability)
     {
