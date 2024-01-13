@@ -18,15 +18,15 @@ namespace Command.Commands
         public void Execute()
         {
             gameController.SetEnemyProb(gameController.GetEnemyProb() - 10);
-            gameController.SetMoneySpent(gameController.GetMoneySpent() + 900);
-            bribe.text = "Soborno:\r\n\t" + gameController.GetEnemyProb() + "%\r\n\t" + gameController.GetMoneySpent() + " monedas";
+            gameController.SetMoney(gameController.GetMoney() -900);
+            bribe.text = "Soborno:\r\n\tProbabilidad del enemigo:" + gameController.GetEnemyProb() + "%\r\n\tTienes:" + gameController.GetMoney() + " monedas";
         }
 
         public void Undo()
         {
             gameController.SetEnemyProb(gameController.GetEnemyProb() + 10);
-            gameController.SetMoneySpent(gameController.GetMoneySpent() - 900);
-            bribe.text = "Soborno:\r\n\t" + gameController.GetEnemyProb() + "%\r\n\t" + gameController.GetMoneySpent() + " monedas";
+            gameController.SetMoney(gameController.GetMoney() + 900);
+            bribe.text = "Soborno:\r\n\tProbabilidad del enemigo:" + gameController.GetEnemyProb() + "%\r\n\tTienes:" + gameController.GetMoney() + " monedas";
         }
     }
 }

@@ -6,10 +6,10 @@ namespace Command.Commands
 {
     public class Bribe5 : ICommand
     {
-        private IGameController gameController;
+        private GameplayController gameController;
         public TMP_Text bribe;
 
-        public Bribe5(IGameController receiver, TMP_Text bribe)
+        public Bribe5(GameplayController receiver, TMP_Text bribe)
         {
             this.gameController = receiver;
             this.bribe = bribe;
@@ -18,15 +18,15 @@ namespace Command.Commands
         public void Execute()
         {
             gameController.SetEnemyProb(gameController.GetEnemyProb() - 5);
-            gameController.SetMoneySpent(gameController.GetMoneySpent() + 500);
-            bribe.text = "Soborno:\r\n\t" + gameController.GetEnemyProb() + "%\r\n\t" + gameController.GetMoneySpent() + " monedas";
+            gameController.SetMoney(gameController.GetMoney() - 500);
+            bribe.text = "Soborno:\r\n\tProbabilidad del enemigo:" + gameController.GetEnemyProb() + "%\r\n\tTienes:" + gameController.GetMoney() + " monedas";
         }
 
         public void Undo()
         {
             gameController.SetEnemyProb(gameController.GetEnemyProb() + 5);
-            gameController.SetMoneySpent(gameController.GetMoneySpent() - 500);
-            bribe.text = "Soborno:\r\n\t" + gameController.GetEnemyProb() + "%\r\n\t" + gameController.GetMoneySpent() + " monedas";
+            gameController.SetMoney(gameController.GetMoney() + 500);
+            bribe.text = "Soborno:\r\n\tProbabilidad del enemigo:" + gameController.GetEnemyProb() + "%\r\n\tTienes:" + gameController.GetMoney() + " monedas";
         }
     }
 }

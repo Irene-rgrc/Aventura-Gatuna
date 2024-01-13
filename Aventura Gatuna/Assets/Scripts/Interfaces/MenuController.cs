@@ -10,16 +10,17 @@ namespace Patterns.State.Interfaces
     public class MenuController : MonoBehaviour, IMenu
     {
         public bool estaJugando = false;
+        public bool estaIntro = false;
         public IState currentState;
         public GameObject GetGameObject() {
             return this.gameObject;
         }
         public void SetState(IState state)
         {
-            if (this.currentState != null) { 
-            this.currentState.Exit();
-        }
-            this.currentState = state;  
+            if (this.currentState != null) {
+                this.currentState.Exit();
+            }
+            this.currentState = state;
             this.currentState.Enter();
 
         }
@@ -42,8 +43,17 @@ namespace Patterns.State.Interfaces
                     Time.timeScale = 0f;
                 }
             }
-        }
-        public void FixedUpdate() {
+
+            if (estaIntro == true) {
+                if (Input.GetKeyUp(KeyCode.Return)) { 
+                Time.timeScale = 1.0f;
+                SetState(new Juego(this));
+                estaJugando = true;
+                estaIntro = false;
+                }
+        } }
+
+            public void FixedUpdate() {
             this.currentState.FixedUpdate();
         }
 
@@ -51,9 +61,8 @@ namespace Patterns.State.Interfaces
         public void Jugar()
         {
             currentState.Exit();
-            Time.timeScale = 1.0f;
-            SetState(new Juego(this));
-            estaJugando = true;
+            SetState(new EscenaIntro(this));
+            estaIntro = true;
         }
         public void Ajustes()
         {
@@ -80,11 +89,7 @@ namespace Patterns.State.Interfaces
             }
 
         }
-        public void Pausa()
-        {
-            SetState(new MenuPausa(this));
-            Time.timeScale = 0f;
-        }
+
 
        public void Salir()
         {
