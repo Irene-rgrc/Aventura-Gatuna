@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum GameChoices
@@ -30,20 +32,14 @@ public class GameplayController : MonoBehaviour, IGameController
     private AnimationController animationController;
 
     private int enemy_prob;
-    private int moneySpent;
+    private int money;
 
     void Awake()
     {
         animationController = GetComponent<AnimationController>();
+        enemy_prob = Connection.Instance.GetProbability();
+        money = Connection.Instance.GetMoney();
     }
-
-    public void SetEnemyProb(int enemy_prob) { this.enemy_prob = enemy_prob; }
-
-    public int GetEnemyProb() { return this.enemy_prob; }
-
-    public void SetMoneySpent(int moneySpent) { this.moneySpent = moneySpent; }
-
-    public int GetMoneySpent() { return this.moneySpent; }
 
     public void SetChoices(GameChoices gameChoices)
     {
@@ -68,9 +64,8 @@ public class GameplayController : MonoBehaviour, IGameController
 
                 break;
         }
-
-        SetOpponentChoice(player_Choice, enemy_prob); // METER AQUI LA ELECCION DEL JUGADORR!!!! SEGUN  LA PROBABILIDAD DEL ENEMIGO LUEGO DENTRO DEL METODO LO MULTIPLICO POR UN PORCENTAJE DE SACAR LA MANO GANADORA Y EL RESTO ES EL PORCENTAJE DE LAS OTRAS MANOS
-        //SetOpponentChoice(player_Choice);
+        SetOpponentChoice(player_Choice,enemy_prob); // METER AQUI LA ELECCION DEL JUGADORR!!!! SEGUN  LA PROBABILIDAD DEL ENEMIGO LUEGO DENTRO DEL METODO LO MULTIPLICO POR UN PORCENTAJE DE SACAR LA MANO GANADORA Y EL RESTO ES EL PORCENTAJE DE LAS OTRAS MANOS
+        Connection.Instance.SetMoney(money);
         DetermineWinner();
     }
 
@@ -97,7 +92,7 @@ public class GameplayController : MonoBehaviour, IGameController
 
     void SetOpponentChoice(GameChoices player_Choice, int enemy_prob) // IMPORTAR AL ENEMIGO!!!!!!
     {
-        int opponentWin = Random.RandomRange(0, 101);
+        int opponentWin = Random.Range(0, 101);
 
         if (opponentWin <=  (int) enemy_prob)
         {
@@ -171,53 +166,29 @@ public class GameplayController : MonoBehaviour, IGameController
 
     void DetermineWinner()
     {
-        if(player_Choice == opponent_Choice)
+        if (player_Choice == opponent_Choice)
         {
             // EMPATE
             infoText.text = "Es un empate! :3 ";
             StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
             return;
         }
-        if (player_Choice == GameChoices.PAPER && opponent_Choice == GameChoices.ROCK)
+        if ((player_Choice == GameChoices.PAPER && opponent_Choice == GameChoices.ROCK) || (player_Choice == GameChoices.ROCK && opponent_Choice == GameChoices.SCISSORS) || (player_Choice == GameChoices.SCISSORS && opponent_Choice == GameChoices.PAPER))
         {
             // JUGADOR GANA
             infoText.text = "Ganaste! <3 ";
-            StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
+            //StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
+            Connection.Instance.SetWin(true);
+            StartCoroutine(ShowWinner());
             return;
         }
-        if (opponent_Choice == GameChoices.PAPER && player_Choice == GameChoices.ROCK)
+        if ((opponent_Choice == GameChoices.PAPER && player_Choice == GameChoices.ROCK) || (opponent_Choice == GameChoices.ROCK && player_Choice == GameChoices.SCISSORS) || (opponent_Choice == GameChoices.SCISSORS && player_Choice == GameChoices.PAPER))
         {
             // NPC GANA
             infoText.text = "Perdiste! :c ";
-            StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
-            return;
-        }
-        if (player_Choice == GameChoices.ROCK && opponent_Choice == GameChoices.SCISSORS)
-        {
-            // JUGADOR GANA
-            infoText.text = "Ganaste! <3 ";
-            StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
-            return;
-        }
-        if (opponent_Choice == GameChoices.ROCK && player_Choice == GameChoices.SCISSORS)
-        {
-            // NPC GANA
-            infoText.text = "Perdiste! :c ";
-            StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
-            return;
-        }
-        if (player_Choice == GameChoices.SCISSORS && opponent_Choice == GameChoices.PAPER)
-        {
-            // JUGADOR GANA
-            infoText.text = "Ganaste! <3 ";
-            StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
-            return;
-        }
-        if (opponent_Choice == GameChoices.SCISSORS && player_Choice == GameChoices.PAPER)
-        {
-            // NPC GANA
-            infoText.text = "Perdiste! :c ";
-            StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
+            Connection.Instance.SetWin(false);
+            StartCoroutine(ShowWinner());
+            //StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
             return;
         }
 
@@ -233,5 +204,33 @@ public class GameplayController : MonoBehaviour, IGameController
             animationController.ResetAnimations(); // Se resetea las animaciones
 
         }
+
+        IEnumerator ShowWinner()
+        {
+            yield return new WaitForSeconds(2f);
+            infoText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            SceneManager.LoadScene("Dungeon");
+        }
+    }
+
+    public void SetEnemyProb(int enemy_prob)
+    {
+        this.enemy_prob = enemy_prob;
+    }
+
+    public int GetEnemyProb()
+    {
+        return enemy_prob;
+    }
+
+    public void SetMoney(int money)
+    {
+        this.money = money;
+    }
+
+    public int GetMoney()
+    {
+        return money;
     }
 }

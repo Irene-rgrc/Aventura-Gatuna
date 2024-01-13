@@ -13,7 +13,6 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 {
-    private bool targetCollision = false;
     public float WanderSpeed;
     public float ChaseSpeed;
 
@@ -118,14 +117,15 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 
     public void MoveTo(Transform target, float speed)
     {
-        if (!targetCollision)
-        {
-            // Get the position of the player
-            transform.LookAt(target.position);
+        if ((target.position - transform.position).x>0) { GetComponent<Animator>().Play("Right"); }
+        else if ((target.position - transform.position).x < 0) { GetComponent<Animator>().Play("Left"); }
+        else if ((target.position - transform.position).y > 0) { GetComponent<Animator>().Play("Up"); }
+        else if ((target.position - transform.position).y < 0) { GetComponent<Animator>().Play("Down"); }
+        // Get the position of the player
+        transform.LookAt(target.position);
             // Correct the rotation
             transform.Rotate(new Vector3(0, -90, 0), Space.Self);
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-        }
         transform.rotation = Quaternion.identity;
     }
 

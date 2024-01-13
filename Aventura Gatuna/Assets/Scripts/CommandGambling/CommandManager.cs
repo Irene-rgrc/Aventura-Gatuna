@@ -33,18 +33,4 @@ public class CommandManager
             Debug.Log("No more commands to UNDO");
         }
     }
-
-    /*public void RedoCommand()
-    {
-        if (lastExecutedCommand < executedCommands.Count - 1)
-        {
-            ICommand lastCommand = executedCommands[lastExecutedCommand + 1];
-            lastCommand.Execute();
-            lastExecutedCommand += 1;
-        }
-        else
-        {
-            Debug.Log("No more commands to REDO");
-        }
-    }*/
 }

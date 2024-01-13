@@ -7,59 +7,34 @@ using UnityEngine.SceneManagement;
 
 public class ObserverGame : MonoBehaviour, IObserver<GameObject>
 {
-    private int enemyProbabillity = 90;
-    public static ObserverGame instance;
-    private static IGameController gameplayController;
     private GameObject enemy;
-
+    private GameObject player;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            DestroyImmediate(gameObject);
-        }
-        GameObject player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         SubjectPlayer subject = player.GetComponent<SubjectPlayer>();
         subject.AddObserver(this);
         
     }
     public void UpdateObserver(GameObject data)
     {
+        enemy = data;
         if (data.CompareTag("Enemy"))
         {
-            enemy = data.GetComponent<GameObject>();
-            enemyProbabillity = data.GetComponent<Enemy>().GetProbability();
-            //rand elige juego y se carga la escena
-            SceneManager.LoadScene("PiedraPapelTijera");
-            //se usa data para cambiar la probabilidad a la que sea
+            //if(enemy.GetComponent<Enemy>().GetType() != "Gambler")
+            if (enemy.GetComponent<Enemy>().Attributes.enemyType == "Gambler")
+            {
+                SceneManager.LoadScene("MiniBlackJack");
+                Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
+            }
+            else if (enemy.GetComponent<Enemy>().Attributes.enemyType != "Gambler")
+            {
+                Connection.Instance.SetProbability(enemy.GetComponent<Enemy>().GetProbability());
+                Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().getMoney());
+                Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
+                SceneManager.LoadScene("PiedraPapelTijera");
+                //SceneManager.SetActiveScene(SceneManager.GetSceneByName("PiedraPapelTijera"));
+            }
         }
-    }
-    // called first
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    // called second
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        GameObject controller = GameObject.FindWithTag("GameController");
-        if(controller != null) {
-            if (controller.GetComponent<GameplayController>() != null) { gameplayController = controller.GetComponent<GameplayController>(); }
-            //if (controller.GetComponent<FlipScript>() != null){ gameplayController = controller.GetComponent<FlipScript>();}
-            gameplayController.SetEnemyProb(enemyProbabillity);
-        
-            
-        }
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

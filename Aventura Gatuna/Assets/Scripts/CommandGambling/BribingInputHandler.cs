@@ -8,7 +8,7 @@ using TMPro;
 
 public class BribingInputHandler : MonoBehaviour
 {
-    private static IGameController gameplayController;
+    private static GameplayController gameplayController;
     private CommandManager _commandManager;
     public TMP_Text bribeText;
 
@@ -18,19 +18,24 @@ public class BribingInputHandler : MonoBehaviour
 
         GameObject controller = GameObject.FindWithTag("GameController");
         if (controller.GetComponent<GameplayController>() != null) { gameplayController = controller.GetComponent<GameplayController>(); }
-        //if (controller.GetComponent<FlipScript>() != null){ gameplayController = controller.GetComponent<FlipScript>();}
     }
 
     public void Bribe10()
     {
-        ICommand command = new Bribe10(gameplayController, bribeText);
-        _commandManager.ExecuteCommand(command);
+        if (gameplayController.GetMoney()>900)
+        {
+            ICommand command = new Bribe10(gameplayController, bribeText);
+            _commandManager.ExecuteCommand(command);
+        }
     }
 
     public void Bribe5()
     {
-        ICommand command = new Bribe5(gameplayController, bribeText);
-        _commandManager.ExecuteCommand(command);
+        if (gameplayController.GetMoney() > 500)
+        {
+            ICommand command = new Bribe5(gameplayController, bribeText);
+            _commandManager.ExecuteCommand(command);
+        }
     }
 
     public void Undo()
