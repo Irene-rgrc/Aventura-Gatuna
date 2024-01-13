@@ -100,8 +100,13 @@ namespace Patterns.State.Interfaces
 
         }
 
+        public void SalirJuego()
+        {
+           UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
+        }
 
-       public void Salir()
+        public void Salir()
         {
             estaJugando = false;
             SetState(new MenuPrincipal(this));
