@@ -1,74 +1,80 @@
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GatoPlayer : MonoBehaviour
 {
 
-    public int maxLife = 100;
+    public int maxLife=100;
     public int minMoney = 0;
 
-    public int currentLife;
-    public int currentMoney;
-
-    int damageAmount;
-
     public GameOverManager gameOverManager;
+    public FinalManager finalManager;
 
+    public Slider sliderPlayer;
 
     private void Start()
     {
-        StartPlayer();
+        if (Connection.Instance.GetLife() != 0) { maxLife = Connection.Instance.GetLife(); }
+
+        Damage();
+        
     }
 
-    private void StartPlayer ()
-    {
-        currentLife = maxLife; currentMoney = minMoney; damageAmount = 25;
-    }
-    private void Update() //esto es solo para hacer comprobaciones
-    {
-        // Verifica si la tecla de espacio fue presionada
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Llama al método TakeDamage al presionar la tecla de espacio
-            Damage();
-        }
-    }
     public void Damage()
     {
-        Debug.LogError(currentLife);
-        currentLife -= damageAmount;
-        setLife(currentLife);
-
-        if (currentLife <= 0)
-        {
-            Die();
+        if (Connection.Instance.GetWin() == 1) {
+            maxLife -= 25;
+            SetLife(maxLife);
+            Connection.Instance.SetLife(maxLife);
         }
+        
+        Debug.LogError(maxLife);
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        if (maxLife <= 0 && currentScene.name != "CoinFlip")
+        {
+                Die();
+            
+        }
+        
+        sliderPlayer.value = maxLife;
     }
 
-public int getLife ()
+public int GetLife ()
     {
-        return currentLife;
+        return maxLife;
     }
 
-public int getMoney()
+public int GetMoney()
     {
-        return currentMoney;
+        return minMoney;
     }
 
-    public void setLife(int newLife)
+    public void SetLife(int newLife)
     {
-        currentLife = newLife;
+        maxLife = newLife;
     }
 
-    public void setMoney(int newMoney)
+    public void SetMoney(int newMoney)
     {
-        currentMoney = newMoney;
+       minMoney = newMoney;
     }
 
 
     private void Die()
     {
+        
         Debug.LogError("Player has died!");
         gameOverManager.LoadGameOverScene();
+    }
+    public void Finals()
+    {
+
+        Debug.LogError("Player has died!");
+        finalManager.SelectFinalScene();
     }
 
 }

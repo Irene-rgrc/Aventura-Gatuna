@@ -7,7 +7,9 @@ public class Connection : ASingleton<Connection>
 {
     private int probability;
     private int money;
-    private bool win;
+    private int playerLife;
+    private int enemyLife;
+    private int win;
     private bool coinWin;
     private GameObject enemy;
     public Vector3 playerPosition;
@@ -28,11 +30,30 @@ public class Connection : ASingleton<Connection>
     {
         return money;
     }
-    public void SetWin(bool win)
+
+    public void SetLife(int newplayerLife)
+    {
+        this.playerLife = newplayerLife;
+    }
+    public int GetLife()
+    {
+        return playerLife;
+    }
+
+    public void SetEnemyLife(int newenemyLife)
+    {
+        this.enemyLife = newenemyLife;
+    }
+    public int GetEnemyLife()
+    {
+        return enemyLife;
+    }
+
+    public void SetWin(int win)
     {
         this.win = win;
     }
-    public bool GetWin()
+    public int GetWin()
     {
         return win;
     }

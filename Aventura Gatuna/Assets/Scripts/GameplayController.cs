@@ -178,7 +178,7 @@ public class GameplayController : MonoBehaviour, IGameController
             // JUGADOR GANA
             infoText.text = "Ganaste! <3 ";
             //StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
-            Connection.Instance.SetWin(true);
+            Connection.Instance.SetWin(2);
             StartCoroutine(ShowWinner());
             return;
         }
@@ -186,7 +186,7 @@ public class GameplayController : MonoBehaviour, IGameController
         {
             // NPC GANA
             infoText.text = "Perdiste! :c ";
-            Connection.Instance.SetWin(false);
+            Connection.Instance.SetWin(1);
             StartCoroutine(ShowWinner());
             //StartCoroutine(DisplayWinnerAndRestart()); // QUITAR ESTO SI NO QUEREMOS RE EMPEZAR
             return;

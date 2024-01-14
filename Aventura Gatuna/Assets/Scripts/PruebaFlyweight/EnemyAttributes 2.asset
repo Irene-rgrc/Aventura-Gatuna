@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c7d21dfcb44d794ab60636d138a4811, type: 3}
-  m_Name: EnemyAttributes
+  m_Name: EnemyAttributes 2
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 2
   maxLife: 100
-  maxProbability: 70
+  maxProbability: 30

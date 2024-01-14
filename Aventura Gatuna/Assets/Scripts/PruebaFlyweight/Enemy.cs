@@ -1,33 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Assertions;
 
-[System.Serializable]
 public class Enemy : MonoBehaviour
 {
     public EnemyAttributes Attributes;
     public int life;
     public int probability;
-    public Slider sliderEnemy;
+    public delegate void EnemyDeathEventHandler(int enemyType);
+    public event EnemyDeathEventHandler OnEnemyDeath;
+    public bool isAlive;
 
-    private void Awake()
+
+    private void Awake() //Inicializa al enemigo
     {
         Assert.IsNotNull(Attributes);
         Debug.Log($"{Attributes.enemyType} created. Life: {Attributes.maxLife}, Probability: {Attributes.maxProbability} ");
-        life = Attributes.maxLife; probability = Attributes.maxProbability;
+        //life = Attributes.maxLife; probability = Attributes.maxProbability;
+
     }
-    private void Update()
+    private void Start()
     {
-        
-        // Verifica si la tecla de espacio fue presionada
-        if (Input.GetKeyDown(KeyCode.Space))
+        GameObject currentEnemy = Connection.Instance.GetEnemy();
+        if (currentEnemy != null)
         {
-            // Llama al método TakeDamage al presionar la tecla de espacio
-            Damage();
+            Enemy enemyact = currentEnemy.GetComponent<Enemy>();
+            enemyact.Damage();
         }
+        
     }
     public int GetHealth()
     {
@@ -42,6 +41,13 @@ public class Enemy : MonoBehaviour
     public int SetHealth(int newLife)
     {
         Attributes.maxLife = newLife;
+
+        // Verifica si la vida llegó a 0 y dispara el evento
+        if (Attributes.maxLife <= 0)
+        {
+            OnEnemyDeath?.Invoke(Attributes.enemyType);
+        }
+
         return Attributes.maxLife;
     }
 
@@ -51,37 +57,30 @@ public class Enemy : MonoBehaviour
         return Attributes.maxProbability;
     }
 
+    public int GetEnemyType()
+    {
+        return Attributes.enemyType;
+    }
+    public void MarkAsDead()
+    {
+        // Invoca el evento OnEnemyDeath y marca al enemigo como muerto
+        OnEnemyDeath?.Invoke(Attributes.enemyType);
+        gameObject.SetActive(false);
+    }
+
     public int Damage() {
-        Debug.Log(Attributes.maxLife);
-        if (Attributes.maxLife > 25) //cada vez que el enemigo pierda en un minijuego se le va a quitar 25 puntos de su vida
+
+        Debug.LogError(Connection.Instance.GetWin());
+        if (Connection.Instance.GetWin() == 2)
         {
-            SetHealth(Attributes.maxLife - 25);
+            MarkAsDead();
+            isAlive = false;
+            Connection.Instance.SetLife(0);
+            return 0;
         }
-        else
-        {
-            SetHealth(0);
-        }
-        sliderEnemy.value = Attributes.maxLife;
         return Attributes.maxLife;
     }
 
-    public bool isAlive()
-    {
-        if(GetHealth() == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-       
-    }
-
-    public void EnemyDeath()
-    {
-        gameObject.SetActive(false);
-    }
 
    
 }

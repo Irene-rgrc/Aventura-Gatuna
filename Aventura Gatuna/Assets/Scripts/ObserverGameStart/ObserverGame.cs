@@ -22,18 +22,20 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
         if (data.CompareTag("Enemy"))
         {
             //if(enemy.GetComponent<Enemy>().GetEnemyType() == "Gambler")
-            if (enemy.GetComponent<Enemy>().Attributes.enemyType == "Gambler")
+            if (enemy.GetComponent<Enemy>().Attributes.enemyType == 2)
             {
+                Debug.LogError(enemy.GetComponent<Enemy>().GetEnemyType());
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
-                Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().getMoney());
+                Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().GetMoney());
                 Connection.Instance.SetIsPlaying(true);
                 SceneManager.LoadScene("MiniBlackJack"); 
             }
             //if(enemy.GetComponent<Enemy>().GetEnemyType() != "Gambler")
-            else if (enemy.GetComponent<Enemy>().Attributes.enemyType != "Gambler")
+            else if (enemy.GetComponent<Enemy>().Attributes.enemyType != 2)
             {
+                Debug.LogError(enemy.GetComponent<Enemy>().GetEnemyType());
                 Connection.Instance.SetProbability(enemy.GetComponent<Enemy>().GetProbability());
-                Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().getMoney());
+                Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().GetMoney());
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
                 Connection.Instance.SetIsPlaying(true);
                 SceneManager.LoadScene("PiedraPapelTijera");
