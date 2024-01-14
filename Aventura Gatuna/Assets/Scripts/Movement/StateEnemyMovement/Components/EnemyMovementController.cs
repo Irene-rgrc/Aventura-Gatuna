@@ -117,10 +117,10 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 
     public void MoveTo(Transform target, float speed)
     {
-        if ((target.position - transform.position).x>0) { GetComponent<Animator>().Play("Right"); }
-        else if ((target.position - transform.position).x < 0) { GetComponent<Animator>().Play("Left"); }
-        else if ((target.position - transform.position).y > 0) { GetComponent<Animator>().Play("Up"); }
-        else if ((target.position - transform.position).y < 0) { GetComponent<Animator>().Play("Down"); }
+        if ((target.position.x - transform.position.x)>0) { GetComponent<Animator>().Play("Right"); }
+        else if ((target.position.x - transform.position.x) < 0) { GetComponent<Animator>().Play("Left"); }
+        else if ((target.position.y - transform.position.y) > 0) { GetComponent<Animator>().Play("Up"); }
+        else if ((target.position.y - transform.position.y) < 0) { GetComponent<Animator>().Play("Down"); }
         // Get the position of the player
         transform.LookAt(target.position);
             // Correct the rotation

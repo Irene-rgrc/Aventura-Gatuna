@@ -18,7 +18,7 @@ public class BribingInputHandler : MonoBehaviour
 
         GameObject controller = GameObject.FindWithTag("GameController");
         if (controller.GetComponent<GameplayController>() != null) { gameplayController = controller.GetComponent<GameplayController>(); }
-        bribeText.text = "Soborno:\r\n\tProbabilidad del enemigo: " + Connection.Instance.GetProbability() + "%\r\n\tTienes: " + Connection.Instance.GetMoney() + " monedas";
+        bribeText.text = "Soborno:\r\n\tProbabilidad del enemigo: " + gameplayController.GetEnemyProb() + "%\r\n\tTienes: " + gameplayController.GetMoney() + " monedas";
     }
 
     public void Bribe10()
