@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnemyState.Interfaces;
 
-public class SearchingForPlayer : IMovementState
+public class SearchingForPlayer : AMovementState
 {
     public SearchingForPlayer(IEnemyMovement enemy) : base(enemy)
     {

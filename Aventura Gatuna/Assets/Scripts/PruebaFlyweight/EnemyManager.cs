@@ -3,24 +3,33 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
-public class EnemyManagerHandler : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyManagerSO enemyManager;
 
     // Diccionario para almacenar la relación entre IDs únicos de enemigos y sus estados de vida
     private Dictionary<int, bool> enemyIDStates = new Dictionary<int, bool>();
-
-    void Start()
+    public void SetEnemyManagerSO(int enemy, bool isAlive)
+    {
+        enemyManager.SetEnemyState(enemy, isAlive);
+    }
+    public bool GetEnemyManagerSO(int enemy)
+    {
+        return enemyManager.GetEnemyState(enemy);
+    }
+    void Awake()
     {
         Scene currentScene = SceneManager.GetActiveScene();
 
         if (currentScene.name != "MainMenu")
         {
             // Inicializa el EnemyManagerSO
-            enemyManager.Initialize(6);
+            //enemyManager.Initialize(6);
 
-            Invoke("HandleEnemies",0.0f);
+            Invoke("HandleEnemies", 2.0f);
         }
+
+        //if (Connection.Instance.GetEnemy() != null) { }
     }
 
     void HandleEnemies()
@@ -28,12 +37,7 @@ public class EnemyManagerHandler : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         Scene currentScene = SceneManager.GetActiveScene();
 
-        if (enemies.Length == 0)
-        {
-            return;
-        }
-
-
+        int i=0;
         foreach (GameObject enemy in enemies)
         {
            
@@ -44,7 +48,8 @@ public class EnemyManagerHandler : MonoBehaviour
                 
 
                 int enemyID = enemy.GetInstanceID();
-
+                enemyComponent.SetID(i);
+                i++;
                
                 if (enemyIDStates.ContainsKey(enemyID))
                 {
@@ -87,7 +92,7 @@ public class EnemyManagerHandler : MonoBehaviour
 
     private bool AreAllEnemiesDead()
     { 
-        foreach (bool isAlive in enemyIDStates.Values)
+        foreach (bool isAlive in enemyManager.enemyStates)
         {
             if (isAlive)
             {
@@ -103,7 +108,7 @@ public class EnemyManagerHandler : MonoBehaviour
         // Imprime el estado de cada enemigo en la consola
         foreach (KeyValuePair<int, bool> entry in enemyIDStates)
         {
-            Debug.Log($"EnemyID {entry.Key}: {entry.Value}");
+            //Debug.Log($"EnemyID {entry.Key}: {entry.Value}");
         }
     }
 

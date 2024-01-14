@@ -71,13 +71,14 @@ public class GameManager2 : MonoBehaviour
         {
             infoText.text = "Has ganado <3!";
             victoria = true;
+            Connection.Instance.SetCoinWin(1);
         } else
         {
             infoText.text = "Has perdido! :c";
             victoria = false;
+            Connection.Instance.SetCoinWin(2);
         }
         infoText.gameObject.SetActive(true);
-        Connection.Instance.SetCoinWin(victoria);
     }
     /*
 public FlipScript coin;

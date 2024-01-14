@@ -5,7 +5,7 @@ using Unity.UI;
 using UnityEngine.Apple;
 using EnemyState.Interfaces;
 
-public class Walking : IMovementState
+public class Walking : AMovementState
 {
     private Transform currentWaypoint;
     private Transform currentTransform;
@@ -21,8 +21,6 @@ public class Walking : IMovementState
         currentTransform = enemy.GetGameObject().transform;
         currentWaypoint = enemy.GetCurrentWaypoint();
         speed = enemy.GetWanderSpeed();
-
-        enemy.SetCurrentSpeed(speed);
     }
 
     public Walking(IEnemyMovement enemy) : base(enemy)

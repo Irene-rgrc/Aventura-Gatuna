@@ -9,24 +9,36 @@ public class Enemy : MonoBehaviour
     public delegate void EnemyDeathEventHandler(int enemyType);
     public event EnemyDeathEventHandler OnEnemyDeath;
     public bool isAlive;
+    private int ID;
 
-
+    public void SetID(int ID) { this.ID = ID; }
+    public int GetID() { return ID; }
     private void Awake() //Inicializa al enemigo
     {
         Assert.IsNotNull(Attributes);
-        Debug.Log($"{Attributes.enemyType} created. Life: {Attributes.maxLife}, Probability: {Attributes.maxProbability} ");
+        Invoke("Actualizar", 1.5f);
+        //Debug.Log($"{Attributes.enemyType} created. Life: {Attributes.maxLife}, Probability: {Attributes.maxProbability} ");
         //life = Attributes.maxLife; probability = Attributes.maxProbability;
 
     }
+
+    void Actualizar()
+    {
+        if (GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>().GetEnemyManagerSO(ID) == false) { Damage(); }
+    }
     private void Start()
     {
-        GameObject currentEnemy = Connection.Instance.GetEnemy();
-        if (currentEnemy != null)
+        Invoke("Comprobar", 1.0f);   
+    }
+
+    void Comprobar()
+    {
+        //GameObject currentEnemy = Connection.Instance.GetEnemy();
+        if (ID == Connection.Instance.GetEnemy() /*&& Connection.Instance.GetWin() == 1*/)
         {
-            Enemy enemyact = currentEnemy.GetComponent<Enemy>();
-            enemyact.Damage();
+            //Enemy enemyact = currentEnemy.GetComponent<Enemy>();
+            Damage();
         }
-        
     }
     public int GetHealth()
     {
@@ -69,16 +81,10 @@ public class Enemy : MonoBehaviour
     }
 
     public int Damage() {
-
-        Debug.LogError(Connection.Instance.GetWin());
-        if (Connection.Instance.GetWin() == 2)
-        {
-            MarkAsDead();
-            isAlive = false;
-            Connection.Instance.SetLife(0);
+        MarkAsDead();
+        isAlive = false;
+        GameObject.FindWithTag("EnemyManager").GetComponent<EnemyManager>().SetEnemyManagerSO(ID, false);
             return 0;
-        }
-        return Attributes.maxLife;
     }
 
 

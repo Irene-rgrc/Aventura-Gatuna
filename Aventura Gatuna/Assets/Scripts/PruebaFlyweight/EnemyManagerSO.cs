@@ -1,14 +1,17 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 [CreateAssetMenu(fileName = "EnemyManager", menuName = "Enemy Manager", order = 1)]
-
 public class EnemyManagerSO : ScriptableObject
 {
-    public bool[] enemyStates;
+    public bool[] enemyStates = new bool[6];
 
     public void Initialize(int numberOfEnemyTypes)
     {
-        enemyStates = new bool[numberOfEnemyTypes];
+        if (enemyStates == null) {
+            enemyStates = new bool[numberOfEnemyTypes];
+        }
     }
 
     public void SetEnemyState(int enemyType, bool isAlive)

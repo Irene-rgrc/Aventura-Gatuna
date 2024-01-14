@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnemyState.Interfaces;
 
-public class Chasing : IMovementState
+public class Chasing : AMovementState
 {
     private Transform playerTransform;
-    private Transform currentTransform;
-
-    //private float rotationSpeed;
     private float chaseSpeed;
 
     public Chasing(IEnemyMovement enemy) : base(enemy)
@@ -17,7 +14,6 @@ public class Chasing : IMovementState
 
     public override void Enter()
     {
-        currentTransform = enemy.GetGameObject().transform;
         playerTransform = enemy.GetPlayerAtSight().transform;
         chaseSpeed = enemy.GetChaseSpeed();
     }

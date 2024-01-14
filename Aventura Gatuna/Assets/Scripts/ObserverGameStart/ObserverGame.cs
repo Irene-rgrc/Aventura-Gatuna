@@ -27,6 +27,7 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
                 Debug.LogError(enemy.GetComponent<Enemy>().GetEnemyType());
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
                 Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().GetMoney());
+                Connection.Instance.SetEnemy(enemy.GetComponent<Enemy>().GetID());
                 Connection.Instance.SetIsPlaying(true);
                 SceneManager.LoadScene("MiniBlackJack"); 
             }
@@ -37,6 +38,7 @@ public class ObserverGame : MonoBehaviour, IObserver<GameObject>
                 Connection.Instance.SetProbability(enemy.GetComponent<Enemy>().GetProbability());
                 Connection.Instance.SetMoney(player.GetComponent<GatoPlayer>().GetMoney());
                 Connection.Instance.SetPosition(player.GetComponent<Transform>().position);
+                Connection.Instance.SetEnemy(enemy.GetComponent<Enemy>().GetID());
                 Connection.Instance.SetIsPlaying(true);
                 SceneManager.LoadScene("PiedraPapelTijera");
             }

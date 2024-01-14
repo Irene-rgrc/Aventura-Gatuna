@@ -644,6 +644,7 @@ MonoBehaviour:
   Attributes: {fileID: 11400000, guid: 7b51860757e5ca04e8129e9dc5af0d64, type: 2}
   life: 0
   probability: 0
+  isAlive: 0
 --- !u!1 &186600135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1421,7 @@ MonoBehaviour:
   Attributes: {fileID: 11400000, guid: 1a64f0ca447131d429942b34b73d1939, type: 2}
   life: 0
   probability: 0
+  isAlive: 0
 --- !u!1 &512291980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,6 +2053,7 @@ MonoBehaviour:
   Attributes: {fileID: 11400000, guid: 1a64f0ca447131d429942b34b73d1939, type: 2}
   life: 0
   probability: 0
+  isAlive: 0
 --- !u!1 &598507078
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,6 +3171,7 @@ MonoBehaviour:
   Attributes: {fileID: 11400000, guid: a92ab33aa06b9dc438f52a68483722ae, type: 2}
   life: 0
   probability: 0
+  isAlive: 0
 --- !u!1 &811957676
 GameObject:
   m_ObjectHideFlags: 0
@@ -6409,6 +6413,7 @@ MonoBehaviour:
   Attributes: {fileID: 11400000, guid: a92ab33aa06b9dc438f52a68483722ae, type: 2}
   life: 0
   probability: 0
+  isAlive: 0
 --- !u!1 &1182769278
 GameObject:
   m_ObjectHideFlags: 0
@@ -44551,7 +44556,7 @@ GameObject:
   - component: {fileID: 1323835412}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: EnemyManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44569,6 +44574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 11400000, guid: 1f6bcb038170e584e99c2f44c513cd60, type: 2}
+  enemystates: 
 --- !u!4 &1323835413
 Transform:
   m_ObjectHideFlags: 0
@@ -45246,9 +45252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1788f78bbdaaa27449be01d3c9d6d8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attributes: {fileID: 11400000, guid: c081803dad0a2c5418e66b731ebd585b, type: 2}
-  life: 0
-  money: 0
+  maxLife: 100
+  minMoney: 0
   gameOverManager: {fileID: 1645194371}
   finalManager: {fileID: 0}
   sliderPlayer: {fileID: 293716184}
@@ -46203,6 +46208,7 @@ MonoBehaviour:
   Attributes: {fileID: 11400000, guid: 7b51860757e5ca04e8129e9dc5af0d64, type: 2}
   life: 0
   probability: 0
+  isAlive: 0
 --- !u!1 &1911904435
 GameObject:
   m_ObjectHideFlags: 0

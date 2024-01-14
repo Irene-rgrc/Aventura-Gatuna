@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using Transform = UnityEngine.Transform;
 
-public class SearchingForWaypoint : IMovementState
+public class SearchingForWaypoint : AMovementState
 {
     private Transform currentTransform;
     private Transform nextWaypoint;

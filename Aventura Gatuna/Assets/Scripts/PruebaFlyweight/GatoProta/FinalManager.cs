@@ -13,24 +13,24 @@ public class FinalManager : MonoBehaviour
 
     public void SelectFinalScene()
     {
-        // Obtén la escena actual
         Scene currentScene = SceneManager.GetActiveScene();
-
-        // Verifica si estamos en la escena deseada y la vida del prota es cero
-        if (currentScene.name == "CoinFlip" && Connection.Instance.GetCoinWin())
+        Debug.Log(Connection.Instance.GetCoinWin());
+        if (Connection.Instance.GetCoinWin()==1)
         {
-            // Carga la escena del final 1
-            LoadFinalScene("Final1");
+            Invoke("LoadFinaleScene1", 5f);
         }
-        if (currentScene.name == "CoinFlip" && !Connection.Instance.GetCoinWin()) {
-            LoadFinalScene("Final2");
+        if (Connection.Instance.GetCoinWin()==2) {
+            Invoke("LoadFinaleScene2", 5f);
         }
     }
-        public void LoadFinalScene(string sceneName)
+    void LoadFinaleScene1()
     {
-        // Carga la escena de Game Over
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("Final1");
     }
 
+    void LoadFinaleScene2()
+    {
+        SceneManager.LoadScene("Final2");
+    }
 
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5b7796eff651d48883bc321439842c, type: 3}
   m_Name: EnemyManager
   m_EditorClassIdentifier: 
-  enemyStates: 00000000000000000000
+  enemyStates: 000000000000

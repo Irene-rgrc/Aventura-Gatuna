@@ -52,11 +52,6 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
     {
         return ChaseSpeed;
     }
-
-    public void SetCurrentSpeed(float speed)
-    {
-        //animator.SetFloat("MoveSpeed", speed);
-    }
     #endregion
 
     #region Get & set Waypoints & playerAtSight
@@ -93,13 +88,10 @@ public class EnemyMovementController : MonoBehaviour, IEnemyMovement
 
     public void SetState(IState state)
     {
-        // Exit old state
         if (currentState != null)
         {
             currentState.Exit();
         }
-
-        // Set current state and enter
         currentState = state;
         currentState.Enter();
     }

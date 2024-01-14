@@ -9,9 +9,9 @@ public class Connection : ASingleton<Connection>
     private int money;
     private int playerLife;
     private int enemyLife;
-    private int win;
-    private bool coinWin;
-    private GameObject enemy;
+    private int win = 3;
+    private int coinWin = 3;
+    private int enemy;
     public Vector3 playerPosition;
     private bool isPlaying;
     public void SetProbability(int probability)
@@ -57,11 +57,11 @@ public class Connection : ASingleton<Connection>
     {
         return win;
     }
-    public void SetCoinWin(bool win)
+    public void SetCoinWin(int win)
     {
         this.coinWin = win;
     }
-    public bool GetCoinWin()
+    public int GetCoinWin()
     {
         return coinWin;
     }
@@ -81,11 +81,11 @@ public class Connection : ASingleton<Connection>
     {
         return isPlaying;
     }
-    public void SetEnemy(GameObject enemy)
+    public void SetEnemy(int enemy)
     {
         this.enemy = enemy;
     }
-    public GameObject GetEnemy()
+    public int GetEnemy()
     {
         return enemy;
     }
